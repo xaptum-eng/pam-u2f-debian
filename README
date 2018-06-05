@@ -8,6 +8,32 @@ This module implements PAM over U2F, providing an easy way to integrate the
 YubiKey (or other U2F compliant authenticators) into your existing
 infrastructure.
 
+[[xaptum-installation]]
+Xaptum Installation
+-------------------
+
+The `pam-u2f` deb is available from the Xaptum private APT repo.
+
+[[xaptum-configuration]]
+Xaptum Configuration
+--------------------
+
+After installation, configure the system to require U2F authentication
+for select users by adding the following line to `/etc/pam.d/common-auth`:
+```
+auth requisite pam_u2f.so origin=pam://xaptum appid=pam://xaptum authfile=/etc/u2f_mappings nouserok cue interactive
+```
+This will require U2F two-factor authentication for all common authentication PAM modules
+(e.g. `login`, `sshd`, and the window-manager login).
+
+Note: only users listed in `/etc/u2f_mappings` will be required to use two-factor authentication.
+
+To add a user to `/etc/u2f_mappings`, run the following with their Yubikey plugged in
+(touch the key when prompted):
+```
+echo "`pamu2fcfg -u<username> -opam://xaptum -ipam://xaptum`" | tee -a /etc/u2f_mappings
+```
+
 [[building]]
 Building
 --------
