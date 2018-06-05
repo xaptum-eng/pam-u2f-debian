@@ -1,0 +1,15 @@
+Source: pam-u2f
+Section: libs
+Priority: optional
+Maintainer: Zane Beckwith <zane.beckwith@xaptum.com>
+Build-Depends: debhelper (>= 9), autoconf, automake, dh-autoreconf, libtool, libpam-dev, asciidoc, xsltproc, libxml2-utils, docbook-xml, pkg-config, libu2f-host-dev, libu2f-server-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/Yubico/pam-u2f
+
+Package: pam-u2f
+Section: libs
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: PAM module for U2F two-factor authentication.
+ This package includes the libraries and utilities.
